@@ -12,19 +12,45 @@ public class Calculadora {
     @PostMapping(value="calcular")
     public ModelAndView postCalcular
     (@RequestParam String operando1,
-     @RequestParam String operando2) 
+     @RequestParam String operando2,
+     @RequestParam String resultado,
+     @RequestParam String operador) 
      
      {
 
         Double operando1Double = Double.valueOf(operando1);
         Double operando2Double = Double.valueOf(operando2);
+        Double resultadoDouble = Double.valueOf(resultado);
 
-        Double resultadoOperacao = operando1Double+operando2Double;
+        switch (operador) {
 
-        String operacao = operando1 + " + " + operando2 + " = " + resultadoOperacao;
+            case '+':
+            resultado = operando1Double + operando2Double;
+              System.out.println(operando1Double + " + " + operando2Double + " = " + resultado);
+              break;
+      
+            case '-':
+            resultado = operando1Double - operando2Double;
+              System.out.println(operando1Double + " - " + operando2Double + " = " + resultado);
+              break;
+      
+            case '*':
+            resultado = operando1Double * operando2Double;
+              System.out.println(operando1Double + " * " + operando2Double + " = " + resultado);
+              break;
+      
+            case '/':
+            resultado = operando1Double / operando2Double;
+              System.out.println(operando1Double + " / " + operando2Double + " = " + resultado);
+              break;
+      
+            default:
+              System.out.println("Operador desejado é inválido!");
+              break;
+          }
 
         ModelAndView modelAndView = new ModelAndView("resultado"); 
-        modelAndView.addObject("texto_resultado", operacao);        
+        modelAndView.addObject("texto_resultado", resultado);        
         return modelAndView;
     }
     
